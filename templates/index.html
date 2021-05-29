@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+</head>
+
+<body>
+ <div class="login">
+	<h2>Predict Loan Repayment</h2>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="POST">
+        <label for="gender">Choose a gender:</label>
+        <select name="gender" id="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        </select>
+        <br>
+        <label for="married">Married</label>
+    	<select name="married" id="married">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+        <br>
+        <label for="dependents">Dependents</label>
+    	<select name="dependents" id="dependents">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3+">3+</option>
+        </select>
+        <br>
+        <label for="education">Education</label>
+    	<select name="education" id="education">
+            <option value="Graduate">Graduate</option>
+            <option value="Not Graduate">Not Graduate</option>
+        </select>
+        <br>
+        <label for="self_employed">Self Employed</label>
+    	<select name="self_employed" id="self_employed">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+        <br>
+        <label for="applicant_income">ApplicantIncome</label>
+        <input type="text" name="applicant_income" placeholder="Enter your yearly income" required="required"/>
+        <br>
+        <label>CoapplicantIncome</label>
+		<input type="text" name="co_applicant_income" placeholder="Coapplicant's yearly income" required="required"/>
+        <br>
+        <label>LoanAmount</label>
+        <input type="text" name="loan_amount" placeholder="How much loan do you want?" required="required"/>
+        <br>
+        <label for="loan_amout_term">LoanAmountTerm</label>
+    	<select name="loan_amout_term" id="loan_amout_term">
+            <option value="60">60</option>
+            <option value="120">120</option>
+            <option value="180">180</option>
+            <option value="240">240</option>
+            <option value="300">300</option>
+            <option value="360">360</option>
+            <option value="480">480</option>
+        </select>
+        <br>
+        <label>CreditHistory</label>
+        <input type="text" name="credit_history" placeholder="Enter 0 or 1" required="required"/>
+        <br>
+        <label for="property_area">PropertyArea</label>
+    	<select name="property_area" id="property_area">
+            <option value="Urban">Urban</option>
+            <option value="Semiurban">SemiUrban</option>
+            <option value="Rural">Rural</option>
+        </select>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        </div>
+    </form>
+    <br>
+    <hr>
+   {{ prediction_text }}
+
+ </div>
+
+
+</body>
+</html>
