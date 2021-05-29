@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 import numpy as np
 from utils import load_estimator
 
@@ -40,9 +40,9 @@ def predict():
 
     # make predictions
     pred = clf.predict(new_data)
-    final_pred = 'Yes' if pred[0] == 1 else 'No'
+    final_pred = "Yes, you will" if pred[0] == 1 else "No, you won't"
 
-    return render_template('index.html', prediction_text=f'Loan Status: {(final_pred)}')
+    return render_template('index.html', prediction_text=f'{(final_pred)}')
 
 if __name__ == '__main__':
     app.run(debug=True)
