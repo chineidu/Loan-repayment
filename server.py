@@ -69,7 +69,7 @@ def predict_API() -> 'json_object':
     test_data['Predictions'] = pred
     test_data = test_data.reset_index()
         
-    path= 'pred_data.json'   # path
+    path= './data/pred_data.json'   # path
     # save data as json
     json_data = save_df_as_json(test_data, path)
     # load the json file
@@ -100,7 +100,7 @@ def predict_API_2() -> 'json_object':
     final_df = pd.concat([final_df, id], axis='columns')
     final_df['Predictions'] = pred
 
-    path= 'pred_data.json'   # path
+    path= './data/pred_data.json'   # path
     # save data as json
     json_data = save_df_as_json(final_df, path)
     # load the json file
