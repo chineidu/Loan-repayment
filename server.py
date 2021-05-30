@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template, jsonify
 import numpy as np
+import pandas as pd
 from utils import load_estimator
-from etl import clean_test_data, save_df_as_json, load_json_data
+from etl import clean_test_data, save_df_as_json, load_json_data, get_IDs
 
 
 
@@ -65,8 +66,8 @@ def predict_API() -> 'json_object':
 
     # make predictions
     pred = clf.predict(X)
-    # add predictions to dataframe
     test_data['Predictions'] = pred
+    test_data = test_data.reset_index()
         
     path= 'pred_data.json'   # path
     # save data as json
@@ -76,8 +77,35 @@ def predict_API() -> 'json_object':
 
     return jsonify(json_data)
 
+@app.route('/predict_API_2')
+def predict_API_2() -> 'json_object':
+    """
+    ================================================================
+    Get the predictions for new data. The data is a pandas DataFrame.
+    It returns json object
+    """
+    # clean the data
+    test_data = clean_test_data('./data/test.csv')
+    # convert dataframe to numpy array
+    X = test_data.to_numpy()
+    # load the estimator
+    estimator = load_estimator()
+    clf = estimator['clf']
+    # make predictions
+    pred = clf.predict(X)
+    test_data['Predictions'] = pred
+    # add the IDs
+    id =  get_IDs('./data/test.csv')
+    final_df = pd.DataFrame()
+    final_df = pd.concat([final_df, id], axis='columns')
+    final_df['Predictions'] = pred
 
-    return render_template('index.html')
+    path= 'pred_data.json'   # path
+    # save data as json
+    json_data = save_df_as_json(final_df, path)
+    # load the json file
+    json_data = load_json_data(path)
+    return jsonify(json_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

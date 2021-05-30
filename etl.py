@@ -50,6 +50,38 @@ def clean_test_data(file: 'csv_file_path') -> 'cleaned_data':
         data[col] = enc.fit_transform(data[col])
     return data
 
+def get_IDs(file: 'csv_file_path') -> np.array:
+    """
+    ====================================================================
+    1. Obtain the loan IDs
+    """  
+    from sklearn.preprocessing import LabelEncoder
+    # load the data
+    data = load_data(file)
+    # split the features into categorical and numerical features
+    cat_cols = data.select_dtypes(include='object').columns.to_list()
+    num_cols = data.select_dtypes(exclude='object').columns.to_list()
+
+    # impute with the median value
+    for col in ['Loan_Amount_Term' , 'LoanAmount', 'Credit_History']:
+        mean = data[col].median()
+        data[col] = np.where(pd.isna(data[col]), mean, data[col])
+    # impute the features with the highest occuring value
+    for col in ['Credit_History', 'Self_Employed', 'Dependents', 'Gender', 'Married', 'Property_Area']:
+        mode = data[col].mode().values[0]
+        data[col] = np.where(pd.isna(data[col]), mode, data[col])
+    # split the features into categorical and numerical features
+    cat_cols = data.select_dtypes(include='object').columns.to_list()
+    num_cols = data.select_dtypes(exclude='object').columns.to_list()
+
+    for col in ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount']:
+        outliers = cal_outliers(col, data)
+        # filter out outliers
+        data = data.loc[(data[col] > outliers[0]) & (data[col] < outliers[1])]
+
+    return data['Loan_ID']
+    
+
 def save_df_as_json(data: pd.DataFrame, path: 'file path') ->'json_object':
     """
     ====================================================================
