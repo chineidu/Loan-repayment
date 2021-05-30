@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-  <title>ML API</title>
+  <title>Loan Repayment API</title>
 </head>
 
 <body>
@@ -83,8 +83,8 @@
     </form>
     <br>
     <hr>
-   <h4>Will you repay your loan?? </h4>
-   {{ prediction_text }}
+   <h4>Loan repayment status: {{ prediction_text }}</h4>
+   
  </div>
     <div style="margin-top:300px"></div>
 
