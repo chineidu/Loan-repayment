@@ -32,7 +32,7 @@ def predict_API() -> 'json_object':
     Get the predictions for new data. The data is a pandas DataFrame.
     It returns json object
     """
-    # load the estimator
+    # load the estimator and encoders
     estimator = load_estimator()
     clf = estimator['clf']
     le_gender = estimator['le_gender']
@@ -97,7 +97,7 @@ def predict_test_data() -> 'json_object':
     final_df = pd.DataFrame()
     final_df = pd.concat([final_df, id], axis='columns')
     final_df['Predictions'] = pred
-    path= './data/pred_data.json'   # path
+    path = './data/pred_data.json'   # path
     # save data as json
     json_data = save_df_as_json(final_df, path)
     # load the json file
