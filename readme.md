@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-* In this project, the various factors affecting loan repayment were clearfully analysed. The analysis showed that ***Credit History*** and ***Co-applicant  Income*** are the two major factors that affect loan repaymnet. 
+* In this project, the various factors affecting loan repayment were clearfully analysed. The analysis showed that ***Credit History*** and ***Co-applicant  Income*** are the two major factors that affect loan repaymnet.
 * A classification model with an f1-score of **~85%** was built using **Random Forest**.
 * The model was saved as a pickle file which was used to build an API for predictions on unseen data.
 
@@ -12,7 +12,8 @@ The dataset has 614 records with 12 features and a target variable **'Loan_Statu
 
 ## Data Cleaning
 
-Data cleaning was performed because the dataset contains missing values and outliers. Interquartile range was used to detect and remove outliers.
+* Missing values in the numerical features were imputed using the median values while the categorical features were filled with highest occuring values.
+* Interquartile range was used to detect and remove outliers.
 
 ## Data Exploration
 
@@ -24,5 +25,10 @@ Data cleaning was performed because the dataset contains missing values and outl
 
 ## Model Building and Performance
 
-## Model Deployment
+* The categorical features were encoded and converted to numerical features.
+* Random Forest Classifier and Ada Boost Classifier models were built and optimised.
+* Random Forest Classifier outperformed the other model with an f1-score of **~85%**.
 
+## API
+
+An API and a web app was built using flask.
