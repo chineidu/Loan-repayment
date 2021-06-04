@@ -26,8 +26,7 @@ The dataset has 614 records with 12 features and a target variable **'Loan_Statu
 ## Model Building and Performance
 
 * The categorical features were encoded and converted to numerical features.
-* Random Forest Classifier and Ada Boost Classifier models were built and optimised.
-* Random Forest Classifier outperformed the other model with an f1-score of **~85%**.
+* Random Forest Classifier and Ada Boost Classifier models were built and optimised. Random Forest Classifier performed better with an f1-score of **~85%**.
 
 ## API
 
